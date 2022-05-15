@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Controle de Vendas</string>
+
+    <string name="text_formated_price">R$ %1$s</string>
+
+    <string name="menu_main_home">Home</string>
+    <string name="menu_main_finance">Financeiro</string>
+    <string name="menu_main_products">Produtos</string>
+    <string name="menu_main_account">Conta</string>
+
+    <!--    HomeFragment-->
+    <string name="text_cost_price_product_home_Fragment">Preço de custo</string>
+    <string name="text_sale_price_product_home_Fragment">Preço de venda</string>
+    <string name="text_stock_product_home_Fragment">Estoque</string>
+    <string name="text_sold_product_home_Fragment">Vendidos</string>
+
+</resources>

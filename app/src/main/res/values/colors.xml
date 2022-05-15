@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">@color/color_text_pust_light</color>
+    <color name="color_secondary">#22223D</color>
+
+    <color name="color_hint">#A85CF9</color>
+    <color name="color_accent">#F0ECFF</color>
+
+    <color name="color_text">#D9DEFD</color>
+    <color name="error">#F82649</color>
+    <color name="sucess">#13BFA6</color>
+
+    <color name="color_text_edit">@color/color_text_pust_light</color>
+
+
+    <color name="color_text_light">#626283</color>
+    <color name="color_text_pust_light">#DADADB</color>
+    <color name="color_text_dark">@color/color_secondary</color>
+
+    <color name="bg_app">#F2F3F9</color>
+    <color name="color_bg_edit">#229B86F3</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>
