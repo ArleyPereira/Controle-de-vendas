@@ -31,7 +31,7 @@
         <item name="colorSecondary">@color/color_hint</item>
         <item name="searchBackground">#FFFFFF</item>
         <item name="android:inputType">text</item>
-        <item name="android:hint">Pesquisar</item>
+        <item name="android:hint">Digite o nome do produto</item>
         <item name="hintColor">#DED5FF</item>
         <item name="backIconTint">@color/color_hint</item>
         <item name="android:textColor">@color/color_hint</item>

@@ -2,8 +2,9 @@ package com.example.controledevendas.presenter.products
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.controledevendas.R
 import com.example.controledevendas.data.model.Product
 import com.example.controledevendas.databinding.BottomSheetAddSaleProductBinding
@@ -13,10 +14,12 @@ import com.example.controledevendas.presenter.adapter.ProductAdapter
 import com.example.controledevendas.presenter.adapter.TypeSelected
 import com.example.controledevendas.util.formatedPrice
 import com.example.controledevendas.util.initToolbar
+import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-
 class ProductsFragment : Fragment() {
+
+    private val TAG = "INFOTESTE"
 
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
@@ -42,6 +45,90 @@ class ProductsFragment : Fragment() {
         initToolbar(binding.toolbar, false)
 
         initAdapter()
+
+        initListeners()
+
+        binding.textInfo.text = ""
+        binding.progressBar.isVisible = false
+    }
+
+    /**
+     * @author Arley Santana
+     * Ouvinte de todos os elementos da view
+     */
+    private fun initListeners() {
+        binding.simpleSearchView.setOnQueryTextListener(object :
+            SimpleSearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return if (newText.isNotEmpty()) {
+                    val productList = getProducts().filter { it.name.contains(newText, true) }
+
+                    productAdapter.submitList(productList)
+
+                    binding.textInfo.text = if (productList.isNotEmpty()) {
+                        ""
+                    } else {
+                        "Nenhum produto encontrado."
+                    }
+                    true
+                } else {
+                    productAdapter.submitList(getProducts())
+                    setPositionRecyclerView()
+                    false
+                }
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextCleared(): Boolean {
+                return false
+            }
+        })
+
+        binding.simpleSearchView.setOnSearchViewListener(object :
+            SimpleSearchView.SearchViewListener {
+            override fun onSearchViewClosed() {
+
+            }
+
+            override fun onSearchViewClosedAnimation() {
+
+            }
+
+            override fun onSearchViewShown() {
+
+            }
+
+            override fun onSearchViewShownAnimation() {
+
+            }
+
+        })
+    }
+
+    private fun setPositionRecyclerView() {
+        productAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+            }
+
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            }
+
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+            }
+
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                binding.rvProducts.scrollToPosition(0)
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+            }
+        })
     }
 
     private fun initAdapter() {
@@ -155,22 +242,57 @@ class ProductsFragment : Fragment() {
     }
 
     private fun getProducts() = listOf(
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
+        Product(
+            "",
+            "Refrigerador Electrolux DFN41 Frost Free com Painel de Controle Externo 371L - Branco",
+            10,
+            5,
+            80.0f,
+            120.0f
+        ),
+        Product(
+            "",
+            "Cooktop a Gás Philco 5 Bocas Chef 5 Bisote Bivolt – Preto",
+            10,
+            5,
+            80.0f,
+            120.0f
+        ),
+        Product("", "Forno Micro-ondas Philco PMO34 Espelhado - 34 L", 10, 5, 80.0f, 120.0f),
+        Product(
+            "",
+            "Liquidificador Osterizer Clássico Edição Limitada 75 Anos",
+            10,
+            5,
+            80.0f,
+            120.0f
+        ),
+        Product(
+            "",
+            "Fogão Industrial 4 Bocas 30x30 Perfil 7 Em Aço Inox com Forno Tampa de Vidro",
+            10,
+            5,
+            80.0f,
+            120.0f
+        ),
+        Product(
+            "",
+            "Sofá 3 Lugares Luizzi Monet Retrátil e Reclinável em Veludo 191cm de Largura",
+            10,
+            5,
+            80.0f,
+            120.0f
+        ),
+        Product("", "Cadeira Executiva", 10, 5, 80.0f, 120.0f),
+        Product("", "Smartphone Samsung Galaxy A52S 5G Branco", 10, 5, 80.0f, 120.0f),
+        Product("", "Smartphone Samsung Galaxy S21", 10, 5, 80.0f, 120.0f),
         Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
     )
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search_products, menu)
         val item = menu.findItem(R.id.menu_search)
-        binding.searchView.setMenuItem(item)
+        binding.simpleSearchView.setMenuItem(item)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
