@@ -1,17 +1,65 @@
 <resources>
     <string name="app_name">Controle de Vendas</string>
 
+    <!--    Generic-->
+    <string name="text_title_warning">Atenção</string>
+    <string name="text_button_warning">Entendi</string>
+    <string name="hint_edit_email">Digite seu e-mail</string>
+    <string name="email_text">E-mail</string>
+    <string name="email_empty">Informe seu e-mail.</string>
+    <string name="password_text">Senha</string>
+    <string name="password_empty">Informe sua senha.</string>
+    <string name="hint_edit_password">Digite sua senha</string>
+    <string name="error_generic">Ocorreu um erro! Por favor tente novamente mais tarde.</string>
+    <string name="text_list_task_empty">Nenhuma tarefa cadastrada.</string>
+    <string name="text_load_list_task">Aguarde, estamos carregando as informações.</string>
+    <string name="text_delete_sucess_task">Tarefa removida com sucesso</string>
+    <string name="text_button_dialog_confirm">Confirmar</string>
+    <string name="text_title_dialog_delete">Deseja remover esta tarefa ?</string>
+    <string name="text_message_dialog_delete">Aperte em confirmar para remover a tarefa.</string>
+
     <string name="text_formated_price">R$ %1$s</string>
 
+    <!--    Erros Firebase Authentication-->
+    <string name="account_not_registered_register_fragment">Nenhuma conta encontrada com este e-mail.</string>
+    <string name="invalid_email_register_fragment">Insira um e-mail válido.</string>
+    <string name="invalid_password_register_fragment">Senha inválida, tente novamente.</string>
+    <string name="email_in_use_register_fragment">Este e-mail já está em uso.</string>
+    <string name="strong_password_register_fragment">Insira uma senha mais forte.</string>
+
+    <!--    BottomBar-->
     <string name="menu_main_home">Home</string>
     <string name="menu_main_finance">Financeiro</string>
     <string name="menu_main_products">Produtos</string>
     <string name="menu_main_account">Conta</string>
+
+    <!--    Register Fragment-->
+    <string name="email_empty_register_fragment">Informe um e-mail válido.</string>
+    <string name="password_empty_register_fragment">Informe uma senha.</string>
+    <string name="establishment_empty_register_fragment">Informe o estabelecimento.</string>
+    <string name="text_button_register_fragment">Criar conta</string>
+    <string name="text_title_toolbar_register_fragment">Criar conta</string>
 
     <!--    HomeFragment-->
     <string name="text_cost_price_product_home_Fragment">Preço de custo</string>
     <string name="text_sale_price_product_home_Fragment">Preço de venda</string>
     <string name="text_stock_product_home_Fragment">Estoque</string>
     <string name="text_sold_product_home_Fragment">Vendidos</string>
+
+    <!--    ProductsFragment-->
+    <string name="menu_add_products_fragment">Add</string>
+
+    <!--    AccountFragment-->
+    <string name="text_title_help_account_fragment">Ajuda</string>
+    <string name="text_description_help_account_fragment">Tire todas suas dúvidas</string>
+
+    <string name="text_title_logout_account_fragment">Sair</string>
+    <string name="text_description_logout_account_fragment">Deslogar da minha conta</string>
+
+    <!--    Logout Account-->
+    <string name="text_title_dialog_logout_fragment">Deslogar da minha conta</string>
+    <string name="text_message_dialog_logout_fragment">Aperte em deslogar para sair da sua conta ou aperte em cancelar.</string>
+    <string name="text_button_ok_dialog_logout_fragment">Deslogar</string>
+
 
 </resources>

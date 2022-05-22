@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -42,7 +42,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/text_title"
                 tools:text="Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco" />
 
             <LinearLayout
@@ -76,7 +76,7 @@
                         android:id="@+id/edt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_edit"
+                        android:background="@drawable/bg_edit_bottom_sheet"
                         android:fontFamily="@font/avenir_medium"
                         android:inputType="numberDecimal"
                         android:padding="9dp"
@@ -103,7 +103,7 @@
                         android:id="@+id/edt_sold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_edit"
+                        android:background="@drawable/bg_edit_bottom_sheet"
                         android:fontFamily="@font/avenir_medium"
                         android:inputType="number"
                         android:padding="9dp"
@@ -146,7 +146,7 @@
                 android:fontFamily="@font/avenir_medium"
                 android:paddingVertical="11dp"
                 android:src="@drawable/ic_plus"
-                android:text="Atualizar"
+                android:text="Adicionar"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="@+id/ib_plus"
                 app:layout_constraintEnd_toStartOf="@+id/ib_plus"

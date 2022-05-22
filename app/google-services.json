@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "131334021170",
+    "project_id": "controle-de-vendas-14efc",
+    "storage_bucket": "controle-de-vendas-14efc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131334021170:android:18b8df2bc3517d94c95c2b",
+        "android_client_info": {
+          "package_name": "br.com.hellodev.controledevendas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131334021170-4daivo4k3rk7db1rphv6phqj70bqqtaj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.hellodev.controledevendas",
+            "certificate_hash": "5303a17b71795c44eda0a8cc93e629c06a09b5f7"
+          }
+        },
+        {
+          "client_id": "131334021170-h5uskenh9sejgaggc74i5r87pi3d4jj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3lrN9XXz1TkWPpuzjEvSp0PCV4zeV8RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131334021170-h5uskenh9sejgaggc74i5r87pi3d4jj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
