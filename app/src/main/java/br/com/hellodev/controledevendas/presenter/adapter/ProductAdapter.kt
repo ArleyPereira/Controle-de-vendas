@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.databinding.ItemProductBinding
-import com.example.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.util.formatedPrice
 
 class ProductAdapter(
@@ -55,7 +55,7 @@ class ProductAdapter(
         holder.binding.textPriceSale.text =
             context.getString(R.string.text_formated_price, product.salePrice.formatedPrice())
 
-        holder.binding.textStock.text = product.stock.toString()
+        holder.binding.textStock.text = product.amount.toString()
         holder.binding.textSold.text = product.sold.toString()
 
         holder.binding.ibOption.setOnClickListener { productSelected(product, TypeSelected.Option) }

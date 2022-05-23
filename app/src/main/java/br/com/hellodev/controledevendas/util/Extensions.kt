@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.lang.Exception
+import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.*
 
-fun Fragment.initToolbar(toolbar: Toolbar, HomeAsUpEnabled: Boolean = true){
+fun Fragment.initToolbar(toolbar: Toolbar, HomeAsUpEnabled: Boolean = true) {
     (activity as AppCompatActivity).setSupportActionBar(toolbar)
     (activity as AppCompatActivity).title = ""
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(HomeAsUpEnabled)
@@ -24,7 +26,7 @@ fun Fragment.initToolbar(toolbar: Toolbar, HomeAsUpEnabled: Boolean = true){
     toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
 }
 
-fun Float.formatedPrice() : String {
+fun Float.formatedPrice(): String {
     val nf: NumberFormat = DecimalFormat(
         "#,##0.00",
         DecimalFormatSymbols(Locale("pt", "BR"))
@@ -63,4 +65,20 @@ fun Fragment.showBottomSheet(
 
     bottomSheetDialog.setContentView(binding.root)
     bottomSheetDialog.show()
+}
+
+fun String.getValueFormated(): Float {
+    return try {
+        val replaceable =
+            String.format(
+                "[%s,.\\s]",
+                NumberFormat.getCurrencyInstance(Locale("pt", "BR")).currency.symbol
+            )
+        val cleanString = this.replace(replaceable.toRegex(), "")
+        return BigDecimal(cleanString).setScale(
+            2, BigDecimal.ROUND_FLOOR
+        ).divide(BigDecimal(100), BigDecimal.ROUND_FLOOR).toFloat()
+    } catch (ex: Exception) {
+        0f
+    }
 }

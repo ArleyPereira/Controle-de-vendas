@@ -48,6 +48,7 @@
                 android:fontFamily="@font/avenir_black"/>
 
             <EditText
+                android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -76,12 +77,12 @@
                         android:fontFamily="@font/avenir_black"/>
 
                     <EditText
+                        android:id="@+id/edit_cost_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        style="@style/Theme.EditText"
-                        android:inputType="text"
-                        android:hint="R$ 39,99"/>
+                        android:text="R$ 0,00"
+                        style="@style/Theme.EditText"/>
 
                 </LinearLayout>
 
@@ -100,12 +101,12 @@
                         android:fontFamily="@font/avenir_black"/>
 
                     <EditText
+                        android:id="@+id/edit_sale_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        style="@style/Theme.EditText"
-                        android:inputType="text"
-                        android:hint="R$ 59,00"/>
+                        android:text="R$ 0,00"
+                        style="@style/Theme.EditText" />
 
                 </LinearLayout>
 
@@ -113,10 +114,10 @@
 
         </LinearLayout>
 
-
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/bg_button"

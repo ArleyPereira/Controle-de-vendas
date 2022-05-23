@@ -10,7 +10,7 @@ import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddSaleProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetStockProductBinding
 import br.com.hellodev.controledevendas.databinding.FragmentProductsBinding
-import com.example.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.presenter.adapter.ProductAdapter
 import br.com.hellodev.controledevendas.presenter.adapter.TypeSelected
 import br.com.hellodev.controledevendas.util.formatedPrice
@@ -74,6 +74,13 @@ class ProductsFragment : Fragment() {
                     true
                 } else {
                     productAdapter.submitList(getProducts())
+
+                    binding.textInfo.text = if (getProducts().isNotEmpty()) {
+                        ""
+                    } else {
+                        "Nenhum produto encontrado."
+                    }
+
                     setPositionRecyclerView()
                     false
                 }
@@ -91,7 +98,12 @@ class ProductsFragment : Fragment() {
         binding.simpleSearchView.setOnSearchViewListener(object :
             SimpleSearchView.SearchViewListener {
             override fun onSearchViewClosed() {
-
+                productAdapter.submitList(getProducts())
+                binding.textInfo.text = if (getProducts().isNotEmpty()) {
+                    ""
+                } else {
+                    "Nenhum produto encontrado."
+                }
             }
 
             override fun onSearchViewClosedAnimation() {
