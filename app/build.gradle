@@ -62,6 +62,9 @@ dependencies {
     // SimpleSearchView - https://github.com/Ferfalk/SimpleSearchView
     implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
 
+    // https://github.com/BlacKCaT27/CurrencyEditText
+    implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
+
     // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

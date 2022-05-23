@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
+import br.com.hellodev.controledevendas.R
+import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.databinding.FragmentFormProductBinding
-import br.com.hellodev.controledevendas.util.MoneyTextWatcher
-import br.com.hellodev.controledevendas.util.getValueFormated
-import br.com.hellodev.controledevendas.util.initToolbar
-import br.com.hellodev.controledevendas.util.showBottomSheet
+import br.com.hellodev.controledevendas.util.*
+import java.util.*
 
-class FormProductFragment : Fragment() {
+class FormProductFragment : BaseFragment() {
 
     private var _binding: FragmentFormProductBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var product: Product
+    private var newProduct: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,22 +38,34 @@ class FormProductFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.editCostPrice.addTextChangedListener(MoneyTextWatcher(binding.editCostPrice))
-        binding.editSalePrice.addTextChangedListener(MoneyTextWatcher(binding.editSalePrice))
+        binding.editCostPrice.locale = Locale("pt", "BR")
+        binding.editSalePrice.locale = Locale("pt", "BR")
 
         binding.btnSave.setOnClickListener { validadeData() }
     }
 
     private fun validadeData() {
         val name = binding.editName.text.toString().trim()
-        val cost = binding.editCostPrice.text.toString().getValueFormated()
-        val sale = binding.editSalePrice.text.toString().getValueFormated()
+        val cost: Double = (binding.editCostPrice.rawValue.toDouble()) / 100
+        val sale: Double = (binding.editSalePrice.rawValue.toDouble()) / 100
 
         if (name.isNotEmpty()) {
             if (cost > 0f) {
                 if (sale > 0f) {
 
-                    Toast.makeText(requireContext(), "tudo certo!", Toast.LENGTH_SHORT).show()
+                    hideKeyboard()
+
+                    binding.progressBar.isVisible = true
+
+                    if (newProduct) product = Product(
+                        name = name,
+                        amount = 0,
+                        sold = 0,
+                        costPrice = cost,
+                        salePrice = sale
+                    )
+
+                    saveProduct(product)
 
                 } else {
                     showBottomSheet(message = "Informe o preço de venda  do produto.")
@@ -60,7 +76,27 @@ class FormProductFragment : Fragment() {
         } else {
             showBottomSheet(message = "Informe o nome do produto.")
         }
+    }
 
+    private fun saveProduct(product: Product) {
+        FirebaseHelper.getDatabase()
+            .child("products")
+            .child(FirebaseHelper.getIdUser())
+            .child(product.id)
+            .setValue(product)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    snackBar(R.string.text_save_sucess_form_product_fragment)
+
+                    parentFragmentManager.setFragmentResult(
+                        "KEY",
+                        bundleOf(Pair("KEY", product))
+                    )
+                    findNavController().popBackStack()
+                }
+            }.addOnFailureListener { exception ->
+                showBottomSheet(message = exception.message.toString())
+            }
     }
 
     override fun onDestroyView() {

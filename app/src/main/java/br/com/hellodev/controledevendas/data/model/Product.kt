@@ -1,14 +1,21 @@
 package br.com.hellodev.controledevendas.data.model
 
 import android.os.Parcelable
+import br.com.hellodev.controledevendas.util.FirebaseHelper
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Product(
-    val id: String,
-    val name: String,
-    val amount: Int = 0,
-    val sold: Int = 0,
-    val costPrice: Float = 0f,
-    val salePrice: Float = 0f
-): Parcelable
+    var id: String = "",
+    var name: String = "",
+    var amount: Int = 0,
+    var sold: Int = 0,
+    var costPrice: Double = 0.0,
+    var salePrice: Double = 0.0
+) : Parcelable {
+
+    init {
+        this.id = FirebaseHelper.getDatabase().push().key.toString()
+    }
+
+}

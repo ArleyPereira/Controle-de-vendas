@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
-import br.com.hellodev.controledevendas.databinding.ItemProductBinding
 import br.com.hellodev.controledevendas.data.model.Product
-import br.com.hellodev.controledevendas.util.formatedPrice
+import br.com.hellodev.controledevendas.databinding.ItemProductBinding
+import br.com.hellodev.controledevendas.util.formatedValue
 
 class ProductAdapter(
     private val context: Context,
@@ -50,10 +50,10 @@ class ProductAdapter(
         holder.binding.textProduct.text = product.name
 
         holder.binding.textPriceCost.text =
-            context.getString(R.string.text_formated_price, product.costPrice.formatedPrice())
+            context.getString(R.string.text_formated_price, product.costPrice.formatedValue())
 
         holder.binding.textPriceSale.text =
-            context.getString(R.string.text_formated_price, product.salePrice.formatedPrice())
+            context.getString(R.string.text_formated_price, product.salePrice.formatedValue())
 
         holder.binding.textStock.text = product.amount.toString()
         holder.binding.textSold.text = product.sold.toString()

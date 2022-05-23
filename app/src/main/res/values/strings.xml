@@ -61,5 +61,7 @@
     <string name="text_message_dialog_logout_fragment">Aperte em deslogar para sair da sua conta ou aperte em cancelar.</string>
     <string name="text_button_ok_dialog_logout_fragment">Deslogar</string>
 
+    <!--    FormProductFragment-->
+    <string name="text_save_sucess_form_product_fragment">Produto salvo com sucesso.</string>
 
 </resources>

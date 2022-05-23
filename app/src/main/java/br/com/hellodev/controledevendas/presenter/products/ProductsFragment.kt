@@ -1,22 +1,27 @@
 package br.com.hellodev.controledevendas.presenter.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
+import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddSaleProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetStockProductBinding
 import br.com.hellodev.controledevendas.databinding.FragmentProductsBinding
-import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.presenter.adapter.ProductAdapter
 import br.com.hellodev.controledevendas.presenter.adapter.TypeSelected
-import br.com.hellodev.controledevendas.util.formatedPrice
+import br.com.hellodev.controledevendas.util.FirebaseHelper
+import br.com.hellodev.controledevendas.util.formatedValue
 import br.com.hellodev.controledevendas.util.initToolbar
 import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class ProductsFragment : Fragment() {
 
@@ -26,6 +31,7 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var productAdapter: ProductAdapter
+    private val productList = mutableListOf<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +55,9 @@ class ProductsFragment : Fragment() {
 
         initListeners()
 
-        binding.textInfo.text = ""
-        binding.progressBar.isVisible = false
+        getProducts()
+
+        listenerFragment()
     }
 
     /**
@@ -62,24 +69,16 @@ class ProductsFragment : Fragment() {
             SimpleSearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 return if (newText.isNotEmpty()) {
-                    val productList = getProducts().filter { it.name.contains(newText, true) }
+                    val newList = productList.filter { it.name.contains(newText, true) }
 
-                    productAdapter.submitList(productList)
+                    productAdapter.submitList(newList)
 
-                    binding.textInfo.text = if (productList.isNotEmpty()) {
-                        ""
-                    } else {
-                        "Nenhum produto encontrado."
-                    }
+                    listEmpty()
                     true
                 } else {
-                    productAdapter.submitList(getProducts())
+                    productAdapter.submitList(productList)
 
-                    binding.textInfo.text = if (getProducts().isNotEmpty()) {
-                        ""
-                    } else {
-                        "Nenhum produto encontrado."
-                    }
+                    listEmpty()
 
                     setPositionRecyclerView()
                     false
@@ -98,12 +97,9 @@ class ProductsFragment : Fragment() {
         binding.simpleSearchView.setOnSearchViewListener(object :
             SimpleSearchView.SearchViewListener {
             override fun onSearchViewClosed() {
-                productAdapter.submitList(getProducts())
-                binding.textInfo.text = if (getProducts().isNotEmpty()) {
-                    ""
-                } else {
-                    "Nenhum produto encontrado."
-                }
+                productAdapter.submitList(productList)
+
+                listEmpty()
             }
 
             override fun onSearchViewClosedAnimation() {
@@ -119,6 +115,43 @@ class ProductsFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun getProducts() {
+        FirebaseHelper.getDatabase()
+            .child("products")
+            .child(FirebaseHelper.getIdUser())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        productList.clear()
+                        for (ds in snapshot.children) {
+                            productList.add(ds.getValue(Product::class.java) as Product)
+                        }
+
+                        val productList = productList
+                        productList.reverse()
+                        productAdapter.submitList(productList)
+                    }
+
+                    listEmpty()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+    }
+
+    private fun listEmpty() {
+        binding.textInfo.text = if (productList.isNotEmpty()) {
+            ""
+        } else {
+            "Nenhum produto encontrado."
+        }
+
+        binding.progressBar.isVisible = false
     }
 
     private fun setPositionRecyclerView() {
@@ -164,7 +197,7 @@ class ProductsFragment : Fragment() {
             adapter = productAdapter
         }
 
-        productAdapter.submitList(getProducts())
+        //productAdapter.submitList(getProducts())
     }
 
     private fun showAddSale(product: Product) {
@@ -173,7 +206,7 @@ class ProductsFragment : Fragment() {
             BottomSheetAddSaleProductBinding.inflate(layoutInflater, null, false)
 
         bottomSheetBinding.textProduct.text = product.name
-        bottomSheetBinding.edtPrice.setText(product.salePrice.formatedPrice())
+        bottomSheetBinding.edtPrice.setText(product.salePrice.formatedValue())
 
         bottomSheetBinding.ibMinus.setOnClickListener {
             if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
@@ -211,7 +244,7 @@ class ProductsFragment : Fragment() {
             BottomSheetStockProductBinding.inflate(layoutInflater, null, false)
 
         bottomSheetBinding.textProduct.text = product.name
-        bottomSheetBinding.edtPrice.setText(product.salePrice.formatedPrice())
+        bottomSheetBinding.edtPrice.setText(product.salePrice.formatedValue())
 
         bottomSheetBinding.ibMinus.setOnClickListener {
             if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
@@ -271,53 +304,29 @@ class ProductsFragment : Fragment() {
         }
     }
 
-    private fun getProducts() = listOf(
-        Product(
-            "",
-            "Refrigerador Electrolux DFN41 Frost Free com Painel de Controle Externo 371L - Branco",
-            10,
-            5,
-            80.0f,
-            120.0f
-        ),
-        Product(
-            "",
-            "Cooktop a Gás Philco 5 Bocas Chef 5 Bisote Bivolt – Preto",
-            10,
-            5,
-            80.0f,
-            120.0f
-        ),
-        Product("", "Forno Micro-ondas Philco PMO34 Espelhado - 34 L", 10, 5, 80.0f, 120.0f),
-        Product(
-            "",
-            "Liquidificador Osterizer Clássico Edição Limitada 75 Anos",
-            10,
-            5,
-            80.0f,
-            120.0f
-        ),
-        Product(
-            "",
-            "Fogão Industrial 4 Bocas 30x30 Perfil 7 Em Aço Inox com Forno Tampa de Vidro",
-            10,
-            5,
-            80.0f,
-            120.0f
-        ),
-        Product(
-            "",
-            "Sofá 3 Lugares Luizzi Monet Retrátil e Reclinável em Veludo 191cm de Largura",
-            10,
-            5,
-            80.0f,
-            120.0f
-        ),
-        Product("", "Cadeira Executiva", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52S 5G Branco", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy S21", 10, 5, 80.0f, 120.0f),
-        Product("", "Smartphone Samsung Galaxy A52s 5G 128GB 6.5 6GB Branco", 10, 5, 80.0f, 120.0f),
-    )
+    private fun listenerFragment() {
+        parentFragmentManager.setFragmentResultListener(
+            "KEY",
+            this
+        ) { key, bundle ->
+            val product: Product = bundle[key] as Product
+
+            // Armazena a lista atual do adapter
+            val oldList = productAdapter.currentList
+
+            // Gera uma nova lista a partir da lista antiga já com a tarefa atualizada
+            val newList = oldList.toMutableList().apply {
+                add(0, product)
+            }
+            
+            for (prod in newList) Log.i(TAG, "listenerFragment: ${prod.name}")
+
+            // Envia a lista atualizada para o adapter
+            productAdapter.submitList(newList)
+
+            setPositionRecyclerView()
+        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
