@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 style="@style/Theme.EditText"
+                android:inputType="textCapWords"
                 android:hint="Celular Samsung A52 branco"/>
 
             <LinearLayout

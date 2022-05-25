@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.33282051282051284" />
         <entry key="app/src/main/res/layout/bottom_sheet_add_sale_product.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_edit_product.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/bottom_sheet_more_product.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_stock_product.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/divisor.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.3385416666666667" />

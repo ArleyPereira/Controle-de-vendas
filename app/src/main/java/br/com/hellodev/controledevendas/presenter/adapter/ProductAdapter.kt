@@ -66,6 +66,10 @@ class ProductAdapter(
     inner class ViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    override fun submitList(list: List<Product>?) {
+        super.submitList(list?.let { ArrayList(it) })
+    }
+
 }
 
 sealed class TypeSelected {

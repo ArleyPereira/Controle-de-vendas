@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.databinding.FragmentFormProductBinding
@@ -20,6 +21,8 @@ class FormProductFragment : BaseFragment() {
 
     private lateinit var product: Product
     private var newProduct: Boolean = true
+
+    private val args: FormProductFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,26 @@ class FormProductFragment : BaseFragment() {
         initToolbar(binding.toolbar)
 
         initListeners()
+
+        getArgs()
+    }
+
+    private fun getArgs() {
+        args.product.let {
+            if (it != null) {
+                this.product = it
+
+                newProduct = false
+
+                configData()
+            }
+        }
+    }
+
+    private fun configData() {
+        binding.editName.setText(product.name)
+        binding.editCostPrice.setText((product.costPrice * 10).toString())
+        binding.editSalePrice.setText((product.salePrice * 10).toString())
     }
 
     private fun initListeners() {
@@ -57,15 +80,21 @@ class FormProductFragment : BaseFragment() {
 
                     binding.progressBar.isVisible = true
 
-                    if (newProduct) product = Product(
-                        name = name,
-                        amount = 0,
-                        sold = 0,
-                        costPrice = cost,
-                        salePrice = sale
-                    )
+                    if (newProduct) {
+                        product = Product(
+                            name = name,
+                            amount = 0,
+                            sold = 0,
+                            costPrice = cost,
+                            salePrice = sale
+                        )
+                    } else {
+                        product.name = name
+                        product.costPrice = cost
+                        product.salePrice = sale
+                    }
 
-                    saveProduct(product)
+                    saveProduct()
 
                 } else {
                     showBottomSheet(message = "Informe o preço de venda  do produto.")
@@ -78,7 +107,7 @@ class FormProductFragment : BaseFragment() {
         }
     }
 
-    private fun saveProduct(product: Product) {
+    private fun saveProduct() {
         FirebaseHelper.getDatabase()
             .child("products")
             .child(FirebaseHelper.getIdUser())

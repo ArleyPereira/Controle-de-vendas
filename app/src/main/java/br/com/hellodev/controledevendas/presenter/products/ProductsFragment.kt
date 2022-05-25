@@ -1,29 +1,26 @@
 package br.com.hellodev.controledevendas.presenter.products
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddSaleProductBinding
+import br.com.hellodev.controledevendas.databinding.BottomSheetMoreProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetStockProductBinding
 import br.com.hellodev.controledevendas.databinding.FragmentProductsBinding
 import br.com.hellodev.controledevendas.presenter.adapter.ProductAdapter
 import br.com.hellodev.controledevendas.presenter.adapter.TypeSelected
-import br.com.hellodev.controledevendas.util.FirebaseHelper
-import br.com.hellodev.controledevendas.util.formatedValue
-import br.com.hellodev.controledevendas.util.initToolbar
+import br.com.hellodev.controledevendas.util.*
 import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class ProductsFragment : Fragment() {
+class ProductsFragment : BaseFragment() {
 
     private val TAG = "INFOTESTE"
 
@@ -73,12 +70,12 @@ class ProductsFragment : Fragment() {
 
                     productAdapter.submitList(newList)
 
-                    listEmpty()
+                    listEmpty(productAdapter.currentList)
                     true
                 } else {
                     productAdapter.submitList(productList)
 
-                    listEmpty()
+                    listEmpty(productAdapter.currentList)
 
                     setPositionRecyclerView()
                     false
@@ -99,7 +96,7 @@ class ProductsFragment : Fragment() {
             override fun onSearchViewClosed() {
                 productAdapter.submitList(productList)
 
-                listEmpty()
+                listEmpty(productAdapter.currentList)
             }
 
             override fun onSearchViewClosedAnimation() {
@@ -134,7 +131,7 @@ class ProductsFragment : Fragment() {
                         productAdapter.submitList(productList)
                     }
 
-                    listEmpty()
+                    listEmpty(productAdapter.currentList)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -144,7 +141,35 @@ class ProductsFragment : Fragment() {
             })
     }
 
-    private fun listEmpty() {
+    private fun deleteProduct(product: Product) {
+        FirebaseHelper.getDatabase()
+            .child("products")
+            .child(FirebaseHelper.getIdUser())
+            .child(product.id)
+            .removeValue()
+            .addOnCompleteListener {
+                // Armazena a lista atual do adapter
+                val oldList = productAdapter.currentList
+
+                // Gera uma nova lista a partir da lista antiga já com a tarefa atualizada
+                val newList = oldList.toMutableList().apply {
+                    remove(product)
+                }
+
+                productAdapter.submitList(newList)
+
+                // Deleta o produto da lista local
+                productList.remove(product)
+
+                listEmpty(newList)
+
+                snackBar(R.string.text_message_delete_sucess_products_fragment)
+            }.addOnFailureListener {
+                showBottomSheet(message = getString(R.string.error_generic))
+            }
+    }
+
+    private fun listEmpty(productList: List<Product>) {
         binding.textInfo.text = if (productList.isNotEmpty()) {
             ""
         } else {
@@ -179,9 +204,12 @@ class ProductsFragment : Fragment() {
 
     private fun initAdapter() {
         productAdapter = ProductAdapter(requireContext()) { product, selected ->
+
+            hideKeyboard()
+
             when (selected) {
                 TypeSelected.Option -> {
-
+                    showMoreOptionProduct(product)
                 }
                 TypeSelected.Stock -> {
                     showAdjustmentStock(product)
@@ -196,8 +224,37 @@ class ProductsFragment : Fragment() {
             setHasFixedSize(true)
             adapter = productAdapter
         }
+    }
 
-        //productAdapter.submitList(getProducts())
+    private fun showMoreOptionProduct(product: Product) {
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
+        val bottomSheetBinding: BottomSheetMoreProductBinding =
+            BottomSheetMoreProductBinding.inflate(layoutInflater, null, false)
+
+        bottomSheetBinding.textProduct.text = product.name
+
+        bottomSheetBinding.btnRemove.setOnClickListener {
+            bottomSheetDialog.dismiss()
+
+            showBottomSheet(
+                titleDialog = R.string.text_title_dialog_delete_products_fragment,
+                message = getString(R.string.text_message_dialog_delete_products_fragment),
+                titleButton = R.string.text_button_confirm_delete_products_fragment,
+                buttonCancel = true,
+                onOkClick = { deleteProduct(product) }
+            )
+        }
+
+        bottomSheetBinding.btnEdit.setOnClickListener {
+            bottomSheetDialog.dismiss()
+
+            val action = ProductsFragmentDirections
+                .actionMenuProductsToFormProductFragment(product)
+            findNavController().navigate(action)
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
     }
 
     private fun showAddSale(product: Product) {
@@ -318,8 +375,6 @@ class ProductsFragment : Fragment() {
             val newList = oldList.toMutableList().apply {
                 add(0, product)
             }
-            
-            for (prod in newList) Log.i(TAG, "listenerFragment: ${prod.name}")
 
             // Envia a lista atualizada para o adapter
             productAdapter.submitList(newList)
@@ -331,7 +386,9 @@ class ProductsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_add -> {
-                findNavController().navigate(R.id.action_menu_products_to_formProductFragment)
+                val action = ProductsFragmentDirections
+                    .actionMenuProductsToFormProductFragment(null)
+                findNavController().navigate(action)
             }
         }
         return super.onOptionsItemSelected(item)

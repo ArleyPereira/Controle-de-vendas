@@ -47,7 +47,10 @@
     <string name="text_sold_product_home_Fragment">Vendidos</string>
 
     <!--    ProductsFragment-->
-    <string name="menu_add_products_fragment">Add</string>
+    <string name="text_title_dialog_delete_products_fragment">Deseja remover este produto ?</string>
+    <string name="text_message_dialog_delete_products_fragment">Aperte em remover para confirmar ou aperte em cancelar para fechar.</string>
+    <string name="text_button_confirm_delete_products_fragment">Confirmar</string>
+    <string name="text_message_delete_sucess_products_fragment">Produto removido com sucesso.</string>
 
     <!--    AccountFragment-->
     <string name="text_title_help_account_fragment">Ajuda</string>
