@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_address.xml" value="0.3025" />
         <entry key="app/src/main/res/drawable/ic_discount.xml" value="0.2115" />
         <entry key="app/src/main/res/drawable/ic_finance.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_gallery.xml" value="0.207" />
         <entry key="app/src/main/res/drawable/ic_help.xml" value="0.2115" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.205" />
         <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.3025" />
@@ -22,6 +23,7 @@
         <entry key="app/src/main/res/drawable/ic_more.xml" value="0.2275" />
         <entry key="app/src/main/res/drawable/ic_navigation.xml" value="0.2115" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_photo.xml" value="0.207" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.3035" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.205" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1475" />
@@ -30,6 +32,7 @@
         <entry key="app/src/main/res/drawable/item_selected.xml" value="0.139" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.33282051282051284" />
+        <entry key="app/src/main/res/layout/bottom_sheet_add_image_profile.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_add_sale_product.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_edit_product.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_more_product.xml" value="0.3380208333333333" />
@@ -47,6 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/layout/item_product.xml" value="0.3385416666666667" />
         <entry key="app/src/main/res/layout/layout_info_bottom_sheet.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.3380208333333333" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/menu/menu_search_products.xml" value="0.3380208333333333" />
       </map>

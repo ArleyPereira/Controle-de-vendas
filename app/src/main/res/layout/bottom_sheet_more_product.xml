@@ -21,6 +21,7 @@
                 android:id="@+id/text_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:ellipsize="end"
                 android:fontFamily="@font/avenir_medium"
                 android:maxLines="2"

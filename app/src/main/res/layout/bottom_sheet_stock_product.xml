@@ -69,10 +69,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/avenir_medium"
-                        android:text="Valor"
+                        android:text="Valor total"
                         android:textAllCaps="true" />
 
-                    <EditText
+                    <com.blackcat.currencyedittext.CurrencyEditText
                         android:id="@+id/edt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,7 +97,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/avenir_medium"
-                        android:text="QTD" />
+                        android:text="Quantidade"
+                        android:textAllCaps="true"/>
 
                     <EditText
                         android:id="@+id/edt_sold"

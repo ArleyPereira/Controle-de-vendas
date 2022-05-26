@@ -39,6 +39,9 @@
             app:destination="@id/authentication"
             app:popUpTo="@id/nav_main"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_menu_account_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -112,5 +115,10 @@
             app:popUpToInclusive="true"/>
 
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="br.com.hellodev.controledevendas.presenter.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
 
 </navigation>

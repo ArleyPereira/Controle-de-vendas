@@ -67,4 +67,9 @@
     <!--    FormProductFragment-->
     <string name="text_save_sucess_form_product_fragment">Produto salvo com sucesso.</string>
 
+    <!--    ProfileFragment-->
+    <string name="text_loading_data_profile_fragment">Aguarde, estamos recuperando as informações.</string>
+    <string name="text_save_sucess_profile_fragment">Informações salvas com sucesso.</string>
+    <string name="text_title_add_image_profile_fragment">Selecione abaixo uma das opções para escolher uma imagem para seu perfil.</string>
+
 </resources>

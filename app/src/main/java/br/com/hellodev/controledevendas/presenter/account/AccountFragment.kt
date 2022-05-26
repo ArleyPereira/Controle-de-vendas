@@ -41,6 +41,10 @@ class AccountFragment : Fragment() {
                 onOkClick = { logout() }
             )
         }
+
+        binding.llProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_account_to_profileFragment)
+        }
     }
 
     private fun logout() {
