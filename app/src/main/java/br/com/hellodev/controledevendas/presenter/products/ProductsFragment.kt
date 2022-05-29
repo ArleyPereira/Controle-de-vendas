@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Sale
 import br.com.hellodev.controledevendas.data.model.Stock
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddSaleProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetMoreProductBinding
@@ -21,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import java.util.*
 
 class ProductsFragment : BaseFragment() {
 
@@ -291,7 +293,7 @@ class ProductsFragment : BaseFragment() {
 
         bottomSheetBinding.btnSave.setOnClickListener {
             product.salePrice = bottomSheetBinding.edtPrice.rawValue.toDouble() / 100
-            updateStock(product, amount)
+            getStock(product, amount)
 
             bottomSheetDialog.dismiss()
         }
@@ -352,9 +354,9 @@ class ProductsFragment : BaseFragment() {
 
     /**
      * @author Arley Santana
-     * Decrementa a quantidade do estoque do produto
+     * Recupera o estoque atual do produto
      */
-    private fun updateStock(product: Product, amount: Int) {
+    private fun getStock(product: Product, amount: Int) {
         FirebaseHelper
             .getDatabase()
             .child("stock")
@@ -365,8 +367,19 @@ class ProductsFragment : BaseFragment() {
                     val stock = snapshot.getValue(Stock::class.java) as Stock
 
                     if (amount <= stock.amount) {
+                        // Registra os dados da venda do produto
+                        val sale = Sale(
+                            idProduct = product.id,
+                            currentPrice = product.salePrice,
+                            amount = amount,
+                            date = Calendar.getInstance().time.time
+                        )
+                        sale.save()
+
+                        // Atualiza o preço de venda do produto caso seja diferente do atual
                         product.save()
 
+                        // Decrementa a quantidade do estoque do produto
                         stock.decrement(amount)
                     } else {
                         Toast.makeText(

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Sale
 import br.com.hellodev.controledevendas.data.model.Stock
 import br.com.hellodev.controledevendas.databinding.ItemProductBinding
 import br.com.hellodev.controledevendas.util.FirebaseHelper
@@ -60,16 +61,18 @@ class ProductAdapter(
         holder.binding.textPriceSale.text =
             context.getString(R.string.text_formated_price, product.salePrice.formatedValue())
 
-
-        holder.binding.textSold.text = product.sold.toString()
-
         holder.binding.ibOption.setOnClickListener { productSelected(product, TypeSelected.Option) }
         holder.binding.llStock.setOnClickListener { productSelected(product, TypeSelected.Stock) }
         holder.binding.llSold.setOnClickListener { productSelected(product, TypeSelected.Sold) }
 
+        // Recupera o estoque atual do produto
         getStock(holder, product.id)
+
+        // Recupera as vendas do produto
+        getSale(holder, product.id)
     }
 
+    // Recupera o estoque atual do produto
     private fun getStock(holder: ViewHolder, idProduct: String) {
         FirebaseHelper
             .getDatabase()
@@ -78,9 +81,35 @@ class ProductAdapter(
             .child(idProduct)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()) {
                         val stock = snapshot.getValue(Stock::class.java) as Stock
                         holder.binding.textStock.text = stock.amount.toString()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+    }
+
+    // Recupera as vendas do produto
+    private fun getSale(holder: ViewHolder, idProduct: String) {
+        FirebaseHelper
+            .getDatabase()
+            .child("sales")
+            .child(FirebaseHelper.getIdUser())
+            .child(idProduct)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val saleList = mutableListOf<Sale>()
+                    if (snapshot.exists()) {
+                        for (sale in snapshot.children) {
+                            saleList.add(snapshot.getValue(Sale::class.java) as Sale)
+                        }
+
+                        holder.binding.textSold.text = saleList.size.toString()
                     }
                 }
 

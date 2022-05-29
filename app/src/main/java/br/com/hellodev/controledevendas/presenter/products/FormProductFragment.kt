@@ -84,7 +84,6 @@ class FormProductFragment : BaseFragment() {
                     if (newProduct) {
                         product = Product(
                             name = name,
-                            sold = 0,
                             costPrice = cost,
                             salePrice = sale
                         )
