@@ -2,6 +2,7 @@ package br.com.hellodev.controledevendas.data.model
 
 import android.os.Parcelable
 import br.com.hellodev.controledevendas.util.FirebaseHelper
+import com.google.firebase.database.ServerValue
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

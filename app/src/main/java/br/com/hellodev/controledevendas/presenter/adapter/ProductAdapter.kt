@@ -79,7 +79,7 @@ class ProductAdapter(
             .child("stock")
             .child(FirebaseHelper.getIdUser())
             .child(idProduct)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val stock = snapshot.getValue(Stock::class.java) as Stock
@@ -101,15 +101,17 @@ class ProductAdapter(
             .child("sales")
             .child(FirebaseHelper.getIdUser())
             .child(idProduct)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val saleList = mutableListOf<Sale>()
+                    var saleAmount = 0
                     if (snapshot.exists()) {
-                        for (sale in snapshot.children) {
-                            saleList.add(snapshot.getValue(Sale::class.java) as Sale)
+                        for (sn in snapshot.children) {
+                            val sale  = sn.getValue(Sale::class.java) as Sale
+
+                            saleAmount += sale.amount
                         }
 
-                        holder.binding.textSold.text = saleList.size.toString()
+                        holder.binding.textSold.text = saleAmount.toString()
                     }
                 }
 

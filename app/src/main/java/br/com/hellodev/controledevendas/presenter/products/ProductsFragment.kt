@@ -381,6 +381,8 @@ class ProductsFragment : BaseFragment() {
 
                         // Decrementa a quantidade do estoque do produto
                         stock.decrement(amount)
+
+                        //productAdapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(
                             requireContext(),
