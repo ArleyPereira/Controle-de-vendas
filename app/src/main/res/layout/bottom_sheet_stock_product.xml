@@ -23,7 +23,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/avenir_medium"
                 android:maxLines="2"
-                android:text="Ajuste de estoque"
+                android:text="Entrada de estoque"
                 android:textAlignment="center"
                 android:textColor="@color/sucess"
                 android:textSize="24sp"
@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/avenir_medium"
-                        android:text="Valor total"
+                        android:text="Valor por un"
                         android:textAllCaps="true" />
 
                     <com.blackcat.currencyedittext.CurrencyEditText
@@ -101,7 +101,7 @@
                         android:textAllCaps="true"/>
 
                     <EditText
-                        android:id="@+id/edt_sold"
+                        android:id="@+id/edt_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_bottom_sheet"

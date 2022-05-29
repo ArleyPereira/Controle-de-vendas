@@ -129,9 +129,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:textAlignment="center"
+                        android:text="0"
                         android:fontFamily="@font/avenir_medium"
-                        android:textColor="@color/color_hint"
-                        tools:text="22" />
+                        android:textColor="@color/color_hint" />
 
                 </LinearLayout>
 
@@ -164,10 +164,10 @@
                         android:id="@+id/text_sold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="0"
                         android:textAlignment="center"
                         android:fontFamily="@font/avenir_medium"
-                        android:textColor="@color/color_hint"
-                        tools:text="6" />
+                        android:textColor="@color/color_hint" />
 
                 </LinearLayout>
 

@@ -2,11 +2,13 @@ package br.com.hellodev.controledevendas.presenter.products
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Stock
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddSaleProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetMoreProductBinding
 import br.com.hellodev.controledevendas.databinding.BottomSheetStockProductBinding
@@ -128,7 +130,9 @@ class ProductsFragment : BaseFragment() {
 
                         val productList = productList
                         productList.reverse()
+
                         productAdapter.submitList(productList)
+                        productAdapter.notifyDataSetChanged()
                     }
 
                     listEmpty(productAdapter.currentList)
@@ -212,7 +216,7 @@ class ProductsFragment : BaseFragment() {
                     showMoreOptionProduct(product)
                 }
                 TypeSelected.Stock -> {
-                    showAdjustmentStock(product)
+                    showAddStock(product)
                 }
                 else -> {
                     showAddSale(product)
@@ -265,70 +269,81 @@ class ProductsFragment : BaseFragment() {
         bottomSheetBinding.textProduct.text = product.name
         bottomSheetBinding.edtPrice.setText(product.salePrice.formatedValue())
 
+        var amount = 1
         bottomSheetBinding.ibMinus.setOnClickListener {
-            if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
-                val increment = bottomSheetBinding.edtSold.text.toString().toInt() - 1
-                bottomSheetBinding.edtSold.setText(increment.toString())
-
-                setStateModalSale(bottomSheetBinding)
+            amount = if (amount > 1) {
+                bottomSheetBinding.edtSold.text.toString().toInt() - 1
             } else {
-                bottomSheetBinding.edtSold.setText("1")
+                1
             }
-        }
 
-        bottomSheetBinding.btnSave.setOnClickListener {
-            bottomSheetDialog.dismiss()
+            bottomSheetBinding.edtSold.setText(amount.toString())
         }
 
         bottomSheetBinding.ibPlus.setOnClickListener {
             if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
-                val increment = bottomSheetBinding.edtSold.text.toString().toInt() + 1
-                bottomSheetBinding.edtSold.setText(increment.toString())
-
-                setStateModalSale(bottomSheetBinding)
+                amount = bottomSheetBinding.edtSold.text.toString().toInt() + 1
+                bottomSheetBinding.edtSold.setText(amount.toString())
             } else {
-                bottomSheetBinding.edtSold.setText("1")
+                bottomSheetBinding.edtSold.setText(amount.toString())
             }
+        }
+
+        bottomSheetBinding.btnSave.setOnClickListener {
+            product.salePrice = bottomSheetBinding.edtPrice.rawValue.toDouble() / 100
+            updateStock(product, amount)
+
+            bottomSheetDialog.dismiss()
         }
 
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         bottomSheetDialog.show()
     }
 
-    private fun showAdjustmentStock(product: Product) {
+    private fun showAddStock(product: Product) {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         val bottomSheetBinding: BottomSheetStockProductBinding =
             BottomSheetStockProductBinding.inflate(layoutInflater, null, false)
 
         bottomSheetBinding.textProduct.text = product.name
-        bottomSheetBinding.edtPrice.setText(product.salePrice.formatedValue())
+        bottomSheetBinding.edtPrice.setText(product.costPrice.formatedValue())
 
+        var amount = 1
         bottomSheetBinding.ibMinus.setOnClickListener {
-            if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
-                val increment = bottomSheetBinding.edtSold.text.toString().toInt() - 1
-                bottomSheetBinding.edtSold.setText(increment.toString())
+            if (bottomSheetBinding.edtAmount.text.toString().isNotEmpty()) {
+                amount = bottomSheetBinding.edtAmount.text.toString().toInt() - 1
 
-                // Altera o texto do botão caso de acordo com a quantidade negativa e positiva
-                setStateButtonStock(bottomSheetBinding)
+                if (amount > 0) {
+                    bottomSheetBinding.edtAmount.setText(amount.toString())
+                } else {
+                    amount = 1
+                }
+
             } else {
-                bottomSheetBinding.edtSold.setText("1")
+                bottomSheetBinding.edtAmount.setText(amount.toString())
+            }
+        }
+
+        bottomSheetBinding.ibPlus.setOnClickListener {
+            if (bottomSheetBinding.edtAmount.text.toString().isNotEmpty()) {
+                amount = bottomSheetBinding.edtAmount.text.toString().toInt() + 1
+
+                bottomSheetBinding.edtAmount.setText(amount.toString())
+
+            } else {
+                bottomSheetBinding.edtAmount.setText(amount.toString())
             }
         }
 
         bottomSheetBinding.btnSave.setOnClickListener {
+            product.costPrice = bottomSheetBinding.edtPrice.rawValue.toDouble() / 100
+            product.save()
+
+            // Incrementa a quantidade do estoque do produto
+            val stock = Stock(product.id, amount)
+            stock.increment(amount)
+
             bottomSheetDialog.dismiss()
-        }
-
-        bottomSheetBinding.ibPlus.setOnClickListener {
-            if (bottomSheetBinding.edtSold.text.toString().isNotEmpty()) {
-                val increment = bottomSheetBinding.edtSold.text.toString().toInt() + 1
-                bottomSheetBinding.edtSold.setText(increment.toString())
-
-                // Altera o texto do botão caso de acordo com a quantidade negativa e positiva
-                setStateButtonStock(bottomSheetBinding)
-            } else {
-                bottomSheetBinding.edtSold.setText("1")
-            }
         }
 
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
@@ -337,28 +352,37 @@ class ProductsFragment : BaseFragment() {
 
     /**
      * @author Arley Santana
-     * Altera o texto do botão de acordo com a quantidade negativa e positiva do estoque
+     * Decrementa a quantidade do estoque do produto
      */
-    private fun setStateButtonStock(bottomSheetBinding: BottomSheetStockProductBinding) {
-        if (bottomSheetBinding.edtSold.text.toString().toInt() >= 0) {
-            bottomSheetBinding.btnSave.text = "Adicionar estoque"
-        } else if (bottomSheetBinding.edtSold.text.toString().toInt() < 0) {
-            bottomSheetBinding.btnSave.text = "Retirar estoque"
-        }
-    }
+    private fun updateStock(product: Product, amount: Int) {
+        FirebaseHelper
+            .getDatabase()
+            .child("stock")
+            .child(FirebaseHelper.getIdUser())
+            .child(product.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val stock = snapshot.getValue(Stock::class.java) as Stock
 
-    /**
-     * @author Arley Santana
-     * Altera o título da modal de acordo com a quantidade negativa e positiva do estorno
-     */
-    private fun setStateModalSale(bottomSheetBinding: BottomSheetAddSaleProductBinding) {
-        if (bottomSheetBinding.edtSold.text.toString().toInt() >= 0) {
-            bottomSheetBinding.textTitle.text = "Adicionar venda"
-            bottomSheetBinding.btnSave.text = "Adicionar"
-        } else if (bottomSheetBinding.edtSold.text.toString().toInt() < 0) {
-            bottomSheetBinding.textTitle.text = "Estornar venda"
-            bottomSheetBinding.btnSave.text = "Estornar"
-        }
+                    if (amount <= stock.amount) {
+                        product.save()
+
+                        stock.decrement(amount)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Estoque insuficiente.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 
     private fun listenerFragment() {

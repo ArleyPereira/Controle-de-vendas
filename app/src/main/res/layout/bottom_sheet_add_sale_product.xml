@@ -72,7 +72,7 @@
                         android:text="Valor"
                         android:textAllCaps="true" />
 
-                    <EditText
+                    <com.blackcat.currencyedittext.CurrencyEditText
                         android:id="@+id/edt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

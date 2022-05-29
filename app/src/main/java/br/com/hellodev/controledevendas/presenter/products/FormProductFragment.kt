@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Product
+import br.com.hellodev.controledevendas.data.model.Stock
 import br.com.hellodev.controledevendas.databinding.FragmentFormProductBinding
 import br.com.hellodev.controledevendas.util.*
 import java.util.*
@@ -83,7 +84,6 @@ class FormProductFragment : BaseFragment() {
                     if (newProduct) {
                         product = Product(
                             name = name,
-                            amount = 0,
                             sold = 0,
                             costPrice = cost,
                             salePrice = sale
@@ -115,6 +115,13 @@ class FormProductFragment : BaseFragment() {
             .setValue(product)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    // Salva o estoque do produto com valor '0'
+                    if(newProduct){
+                        val stock = Stock(product.id, 0)
+                        stock.save()
+                    }
+
                     snackBar(R.string.text_save_sucess_form_product_fragment)
 
                     parentFragmentManager.setFragmentResult(
