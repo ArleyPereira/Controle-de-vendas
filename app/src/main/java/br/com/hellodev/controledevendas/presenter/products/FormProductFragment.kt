@@ -13,7 +13,6 @@ import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.data.model.Stock
 import br.com.hellodev.controledevendas.databinding.FragmentFormProductBinding
 import br.com.hellodev.controledevendas.util.*
-import java.util.*
 
 class FormProductFragment : BaseFragment() {
 
@@ -57,21 +56,21 @@ class FormProductFragment : BaseFragment() {
 
     private fun configData() {
         binding.editName.setText(product.name)
-        binding.editCostPrice.setText((product.costPrice * 10).toString())
-        binding.editSalePrice.setText((product.salePrice * 10).toString())
+        binding.editCostPrice.setText(product.costPrice.toString())
+        binding.editSalePrice.setText(product.salePrice.toString())
     }
 
     private fun initListeners() {
-        binding.editCostPrice.locale = Locale("pt", "BR")
-        binding.editSalePrice.locale = Locale("pt", "BR")
+        binding.editCostPrice.addTextChangedListener(MoneyMask(binding.editCostPrice))
+        binding.editSalePrice.addTextChangedListener(MoneyMask(binding.editSalePrice))
 
         binding.btnSave.setOnClickListener { validadeData() }
     }
 
     private fun validadeData() {
         val name = binding.editName.text.toString().trim()
-        val cost: Double = (binding.editCostPrice.rawValue.toDouble()) / 100
-        val sale: Double = (binding.editSalePrice.rawValue.toDouble()) / 100
+        val cost = MoneyMask.getValue(binding.editCostPrice.text.toString())
+        val sale = MoneyMask.getValue(binding.editSalePrice.text.toString())
 
         if (name.isNotEmpty()) {
             if (cost > 0f) {

@@ -72,17 +72,18 @@
                         android:text="Valor por un"
                         android:textAllCaps="true" />
 
-                    <com.blackcat.currencyedittext.CurrencyEditText
+                    <EditText
                         android:id="@+id/edt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_bottom_sheet"
                         android:fontFamily="@font/avenir_medium"
-                        android:inputType="numberDecimal"
                         android:padding="9dp"
+                        android:hint="R$ 0,00"
+                        android:inputType="number"
+                        android:textColorHint="@color/white"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
-                        tools:text="R$ 0,00" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 

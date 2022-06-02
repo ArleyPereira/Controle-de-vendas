@@ -77,12 +77,13 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/avenir_black"/>
 
-                    <com.blackcat.currencyedittext.CurrencyEditText
+                    <EditText
                         android:id="@+id/edit_cost_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="R$ 0,00"
+                        android:hint="R$ 0,00"
+                        android:inputType="number"
                         style="@style/Theme.EditText"/>
 
                 </LinearLayout>
@@ -101,12 +102,13 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/avenir_black"/>
 
-                    <com.blackcat.currencyedittext.CurrencyEditText
+                    <EditText
                         android:id="@+id/edit_sale_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="R$ 0,00"
+                        android:hint="R$ 0,00"
+                        android:inputType="number"
                         style="@style/Theme.EditText" />
 
                 </LinearLayout>

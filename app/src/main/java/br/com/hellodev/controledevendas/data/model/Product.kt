@@ -14,8 +14,8 @@ import kotlinx.parcelize.Parcelize
 data class Product(
     var id: String = "",
     var name: String = "",
-    var costPrice: Double = 0.0,
-    var salePrice: Double = 0.0
+    var costPrice: Float = 0f,
+    var salePrice: Float = 0f
 ) : Parcelable {
 
     init {

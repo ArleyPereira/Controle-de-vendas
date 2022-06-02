@@ -73,7 +73,7 @@
             <include layout="@layout/divisor" />
 
             <LinearLayout
-                android:id="@+id/btnEnderecos"
+                android:id="@+id/ll_expenses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="24dp"
-                    android:src="@drawable/ic_address" />
+                    android:src="@drawable/ic_finance" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -97,7 +97,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Endereços"
+                        android:text="Meus gastos"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:fontFamily="@font/avenir_black"/>
@@ -105,105 +105,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Meus endereços de entrega"
-                        android:textColor="@color/color_accent"
-                        android:fontFamily="@font/avenir_medium"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/ic_navigation" />
-
-            </LinearLayout>
-
-            <include layout="@layout/divisor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="24dp"
-                    android:src="@drawable/ic_discount" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cupons"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/avenir_black"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cupons e promoções"
-                        android:textColor="@color/color_accent"
-                        android:fontFamily="@font/avenir_medium"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/ic_navigation" />
-
-            </LinearLayout>
-
-            <include layout="@layout/divisor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="24dp"
-                    android:src="@drawable/ic_help" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ajuda"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/avenir_black"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tire todas suas dúvidas"
+                        android:text="Registre todas suas despesas"
                         android:textColor="@color/color_accent"
                         android:fontFamily="@font/avenir_medium"/>
 

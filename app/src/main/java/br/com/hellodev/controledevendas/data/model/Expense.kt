@@ -2,16 +2,14 @@ package br.com.hellodev.controledevendas.data.model
 
 import android.os.Parcelable
 import br.com.hellodev.controledevendas.util.FirebaseHelper
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class Sale(
+@kotlinx.parcelize.Parcelize
+data class Expense(
     var id: String = "",
-    var idProduct: String = "",
-    var currentPrice: Float = 0f,
-    var amount: Int = 0,
+    var description: String = "",
+    var amount: Float = 0f,
     var date: Long = 0L
-) : Parcelable {
+): Parcelable {
 
     init {
         this.id = FirebaseHelper.getDatabase().push().key.toString()
@@ -20,9 +18,8 @@ data class Sale(
     fun save(){
         FirebaseHelper
             .getDatabase()
-            .child("sales")
+            .child("expenses")
             .child(FirebaseHelper.getIdUser())
-            .child(this.idProduct)
             .child(this.id)
             .setValue(this)
     }

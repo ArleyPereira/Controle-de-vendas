@@ -268,6 +268,8 @@ class ProductsFragment : BaseFragment() {
         val bottomSheetBinding: BottomSheetAddSaleProductBinding =
             BottomSheetAddSaleProductBinding.inflate(layoutInflater, null, false)
 
+        bottomSheetBinding.edtPrice.addTextChangedListener(MoneyMask(bottomSheetBinding.edtPrice))
+
         bottomSheetBinding.textProduct.text = product.name
         bottomSheetBinding.edtPrice.setText(product.salePrice.formatedValue())
 
@@ -292,7 +294,7 @@ class ProductsFragment : BaseFragment() {
         }
 
         bottomSheetBinding.btnSave.setOnClickListener {
-            product.salePrice = bottomSheetBinding.edtPrice.rawValue.toDouble() / 100
+            product.salePrice = MoneyMask.getValue(bottomSheetBinding.edtPrice.text.toString())
             getStock(product, amount)
 
             bottomSheetDialog.dismiss()
@@ -306,6 +308,8 @@ class ProductsFragment : BaseFragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         val bottomSheetBinding: BottomSheetStockProductBinding =
             BottomSheetStockProductBinding.inflate(layoutInflater, null, false)
+
+        bottomSheetBinding.edtPrice.addTextChangedListener(MoneyMask(bottomSheetBinding.edtPrice))
 
         bottomSheetBinding.textProduct.text = product.name
         bottomSheetBinding.edtPrice.setText(product.costPrice.formatedValue())
@@ -338,7 +342,7 @@ class ProductsFragment : BaseFragment() {
         }
 
         bottomSheetBinding.btnSave.setOnClickListener {
-            product.costPrice = bottomSheetBinding.edtPrice.rawValue.toDouble() / 100
+            product.costPrice = MoneyMask.getValue(bottomSheetBinding.edtPrice.text.toString())
             product.save()
 
             // Incrementa a quantidade do estoque do produto
@@ -381,8 +385,6 @@ class ProductsFragment : BaseFragment() {
 
                         // Decrementa a quantidade do estoque do produto
                         stock.decrement(amount)
-
-                        //productAdapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(
                             requireContext(),

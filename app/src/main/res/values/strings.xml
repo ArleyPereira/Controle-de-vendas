@@ -72,4 +72,10 @@
     <string name="text_save_sucess_profile_fragment">Informações salvas com sucesso.</string>
     <string name="text_title_add_image_profile_fragment">Selecione abaixo uma das opções para escolher uma imagem para seu perfil.</string>
 
+    <!--    ExpensesFragment-->
+    <string name="text_title_dialog_delete_expenses_fragment">Deseja remover esta despesa ?</string>
+    <string name="text_message_dialog_delete_expenses_fragment">Aperte em remover para confirmar ou aperte em cancelar para fechar.</string>
+    <string name="text_button_confirm_delete_expenses_fragment">Confirmar</string>
+    <string name="text_message_delete_sucess_expenses_fragment">Despesa removida com sucesso.</string>
+
 </resources>

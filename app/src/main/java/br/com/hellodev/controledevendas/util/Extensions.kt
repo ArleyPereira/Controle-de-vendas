@@ -11,9 +11,7 @@ import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
+import java.text.*
 import java.util.*
 
 fun Fragment.initToolbar(toolbar: Toolbar, HomeAsUpEnabled: Boolean = true) {
@@ -62,11 +60,71 @@ fun Fragment.showBottomSheet(
     bottomSheetDialog.show()
 }
 
-fun Double.formatedValue(): String {
-    val nf: NumberFormat = DecimalFormat(
-        "#,##0.00", DecimalFormatSymbols(
-            Locale("PT", "br")
-        )
-    )
+fun Float.formatedValue(): String {
+    val nf: NumberFormat = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("PT", "br")))
+    nf.currency = Currency.getInstance("BRL")
     return nf.format(this)
+}
+
+fun Long.formatDate(type: Int): String {
+    val DIA_MES_ANO = 1 // 31/12/2021
+    val HORA_MINUTO = 2 // 22:00
+    val DIA_MES_ANO_HORA_MINUTO = 3 // 31/12/2021 ás 22:00
+    val DIA_MES = 4 // 31 Janeiro
+
+    val locale = Locale("PT", "br")
+
+    val fuso = "America/Sao_Paulo"
+
+    val diaSdf = SimpleDateFormat("dd", locale)
+    diaSdf.timeZone = TimeZone.getTimeZone(fuso)
+
+    val mesSdf = SimpleDateFormat("MM", locale)
+    mesSdf.timeZone = TimeZone.getTimeZone(fuso)
+
+    val anoSdf = SimpleDateFormat("yyyy", locale)
+    anoSdf.timeZone = TimeZone.getTimeZone(fuso)
+
+    val horaSdf = SimpleDateFormat("HH", locale)
+    horaSdf.timeZone = TimeZone.getTimeZone(fuso)
+
+    val minutoSdf = SimpleDateFormat("mm", locale)
+    minutoSdf.timeZone = TimeZone.getTimeZone(fuso)
+
+    val dateFormat = DateFormat.getDateInstance()
+    val netDate = Date(this)
+    dateFormat.format(netDate)
+
+    val hora = horaSdf.format(netDate)
+    val minuto = minutoSdf.format(netDate)
+
+    val dia = diaSdf.format(netDate)
+    var mes = mesSdf.format(netDate)
+    val ano = anoSdf.format(netDate)
+
+    if (type == 4) {
+        mes = when (mes) {
+            "01" -> "janeiro"
+            "02" -> "fevereiro"
+            "03" -> "março"
+            "04" -> "abril"
+            "05" -> "maio"
+            "06" -> "junho"
+            "07" -> "julho"
+            "08" -> "agosto"
+            "09" -> "setembro"
+            "10" -> "outubro"
+            "11" -> "novembro"
+            "12" -> "dezembro"
+            else -> ""
+        }
+    }
+    val time: String = when (type) {
+        DIA_MES_ANO -> "$dia/$mes/$ano"
+        HORA_MINUTO -> "$hora:$minuto"
+        DIA_MES_ANO_HORA_MINUTO -> "$dia/$mes/$ano ás $hora:$minuto"
+        DIA_MES -> "$dia $mes"
+        else -> "Erro"
+    }
+    return time
 }
