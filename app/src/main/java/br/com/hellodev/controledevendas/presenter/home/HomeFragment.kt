@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
 
     private var totalExpenses: Float = 0f
     private var totalSales: Float = 0f
+    private var totalProfitable: Float = 0f
     private var totalProducts: Int = 0
 
     private var salesRef: DatabaseReference? = null
@@ -84,6 +85,7 @@ class HomeFragment : Fragment() {
 
     private fun getSales(typeDateHistoric: TypeDateHistoric) {
         totalSales = 0f
+        totalProfitable = 0f
         totalProducts = 0
 
         binding.textAmountSales.isVisible = false
@@ -109,18 +111,21 @@ class HomeFragment : Fragment() {
                             TypeDateHistoric.Today -> { // Faturamento do dia
                                 if (isSameDay(currentDate, compareDate)) {
                                     totalSales += (sale.amount * sale.currentPrice)
+                                    totalProfitable += sale.profitable
                                     totalProducts += sale.amount
                                 }
                             }
                             TypeDateHistoric.Week -> { // Faturamento da semana
                                 if (isSameWeek(currentDate.time, compareDate.time)) {
                                     totalSales += (sale.amount * sale.currentPrice)
+                                    totalProfitable += sale.profitable
                                     totalProducts += sale.amount
                                 }
                             }
                             else -> { // Faturamento do mês
                                 if (isSameMonth(currentDate, compareDate)) {
                                     totalSales += (sale.amount * sale.currentPrice)
+                                    totalProfitable += sale.profitable
                                     totalProducts += sale.amount
                                 }
                             }
@@ -214,11 +219,16 @@ class HomeFragment : Fragment() {
         val colorPositive = ContextCompat.getColor(requireContext(), R.color.sucess)
         val colorNegative = ContextCompat.getColor(requireContext(), R.color.error)
 
-        val amount = totalSales - totalExpenses
+        val amount = totalProfitable - totalExpenses
         binding.textAmount.apply {
             setTextColor(if (amount >= 0) colorPositive else colorNegative)
             isVisible = true
             text = getString(R.string.text_formated_price, amount.formatedValue())
+        }
+
+        binding.textAmountProfitable.apply {
+            setTextColor(if (totalProfitable >= 0) colorPositive else colorNegative)
+            text = getString(R.string.text_formated_price, totalProfitable.formatedValue())
         }
 
         binding.progressAmount.isVisible = false

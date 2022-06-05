@@ -375,6 +375,7 @@ class ProductsFragment : BaseFragment() {
                         val sale = Sale(
                             idProduct = product.id,
                             currentPrice = product.salePrice,
+                            profitable = product.salePrice - product.costPrice,
                             amount = amount,
                             date = Calendar.getInstance().time.time
                         )

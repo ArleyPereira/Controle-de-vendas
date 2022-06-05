@@ -9,6 +9,7 @@ data class Sale(
     var id: String = "",
     var idProduct: String = "",
     var currentPrice: Float = 0f,
+    var profitable: Float = 0f,
     var amount: Int = 0,
     var date: Long = 0L
 ) : Parcelable {

@@ -324,16 +324,15 @@
                         tools:text="R$ 0,00"/>
 
                     <TextView
+                        android:id="@+id/text_amount_profitable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/avenir_medium"
                         android:textColor="@color/sucess"
                         android:layout_margin="16dp"
-                        android:text="+2.1%"
-                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:visibility="visible"/>
+                        tools:text="Lucro: 50,00"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
