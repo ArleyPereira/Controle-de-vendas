@@ -130,8 +130,18 @@
                         android:layout_marginBottom="8dp"
                         android:textAlignment="center"
                         android:text="0"
+                        android:visibility="invisible"
                         android:fontFamily="@font/avenir_medium"
-                        android:textColor="@color/color_hint" />
+                        android:textColor="@color/color_hint"
+                        tools:visibility="visible"/>
+
+                    <ProgressBar
+                        android:id="@+id/progress_stock"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp"
+                        tools:visibility="visible"/>
 
                 </LinearLayout>
 
@@ -161,13 +171,22 @@
                         android:text="@string/text_sold_product_home_Fragment" />
 
                     <TextView
-                        android:id="@+id/text_sold"
+                        android:id="@+id/text_sale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:visibility="invisible"
                         android:textAlignment="center"
                         android:fontFamily="@font/avenir_medium"
-                        android:textColor="@color/color_hint" />
+                        android:textColor="@color/color_hint"
+                        tools:visibility="visible"/>
+
+                    <ProgressBar
+                        android:id="@+id/progress_sales"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp" />
 
                 </LinearLayout>
 

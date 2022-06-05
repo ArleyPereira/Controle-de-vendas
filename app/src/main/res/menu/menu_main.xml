@@ -9,6 +9,7 @@
     <item
         android:id="@+id/menu_finance"
         android:title="@string/menu_main_finance"
+        android:visible="false"
         android:icon="@drawable/ic_finance"/>
 
     <item

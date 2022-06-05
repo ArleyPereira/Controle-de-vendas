@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.data.model.Expense
 import br.com.hellodev.controledevendas.databinding.FragmentExpensesBinding
 import br.com.hellodev.controledevendas.presenter.adapter.ExpenseAdapter
@@ -48,7 +46,7 @@ class ExpensesFragment : Fragment() {
     private fun getExpenses() {
         FirebaseHelper.getDatabase()
             .child("expenses")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val expenseList = mutableListOf<Expense>()

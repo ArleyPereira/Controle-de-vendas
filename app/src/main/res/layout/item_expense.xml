@@ -55,6 +55,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/divisor" />
+    <include layout="@layout/divisor_vertical" />
 
 </LinearLayout>

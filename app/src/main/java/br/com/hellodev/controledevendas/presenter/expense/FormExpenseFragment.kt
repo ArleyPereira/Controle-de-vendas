@@ -102,7 +102,7 @@ class FormExpenseFragment : BaseFragment() {
     private fun saveExpense(expense: Expense) {
         FirebaseHelper.getDatabase()
             .child("expenses")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(expense.id)
             .setValue(expense)
             .addOnCompleteListener { task ->
@@ -122,7 +122,7 @@ class FormExpenseFragment : BaseFragment() {
             onOkClick = {
                 FirebaseHelper.getDatabase()
                     .child("expenses")
-                    .child(FirebaseHelper.getIdUser())
+                    .child(FirebaseHelper.userId())
                     .child(this.expense.id)
                     .removeValue()
                     .addOnCompleteListener { task ->

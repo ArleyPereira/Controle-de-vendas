@@ -19,7 +19,7 @@ data class Expense(
         FirebaseHelper
             .getDatabase()
             .child("expenses")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(this.id)
             .setValue(this)
     }

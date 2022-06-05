@@ -21,8 +21,7 @@ data class Sale(
         FirebaseHelper
             .getDatabase()
             .child("sales")
-            .child(FirebaseHelper.getIdUser())
-            .child(this.idProduct)
+            .child(FirebaseHelper.userId())
             .child(this.id)
             .setValue(this)
     }

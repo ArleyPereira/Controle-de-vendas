@@ -1,13 +1,7 @@
 package br.com.hellodev.controledevendas.data.model
 
 import android.os.Parcelable
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
-import br.com.hellodev.controledevendas.R
 import br.com.hellodev.controledevendas.util.FirebaseHelper
-import br.com.hellodev.controledevendas.util.showBottomSheet
-import br.com.hellodev.controledevendas.util.snackBar
-import com.google.firebase.ktx.Firebase
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -26,7 +20,7 @@ data class Product(
         FirebaseHelper
             .getDatabase()
             .child("products")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(this.id)
             .setValue(this)
     }

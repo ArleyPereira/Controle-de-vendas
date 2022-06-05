@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import br.com.hellodev.controledevendas.R
-import br.com.hellodev.controledevendas.data.model.Product
 import br.com.hellodev.controledevendas.data.model.User
 import br.com.hellodev.controledevendas.databinding.BottomSheetAddImageProfileBinding
-import br.com.hellodev.controledevendas.databinding.BottomSheetMoreProductBinding
 import br.com.hellodev.controledevendas.databinding.ProfileFragmentBinding
-import br.com.hellodev.controledevendas.presenter.products.ProductsFragmentDirections
 import br.com.hellodev.controledevendas.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
@@ -75,7 +71,7 @@ class ProfileFragment : BaseFragment() {
     private fun saveProfile() {
         FirebaseHelper.getDatabase()
             .child("users")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .setValue(user)
             .addOnSuccessListener {
 
@@ -93,7 +89,7 @@ class ProfileFragment : BaseFragment() {
     private fun getProfile() {
         FirebaseHelper.getDatabase()
             .child("users")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user = snapshot.getValue(User::class.java) as User

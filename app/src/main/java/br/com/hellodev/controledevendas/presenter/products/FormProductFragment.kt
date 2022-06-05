@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -56,8 +55,8 @@ class FormProductFragment : BaseFragment() {
 
     private fun configData() {
         binding.editName.setText(product.name)
-        binding.editCostPrice.setText(product.costPrice.toString())
-        binding.editSalePrice.setText(product.salePrice.toString())
+        binding.editCostPrice.setText((product.costPrice * 10).toString())
+        binding.editSalePrice.setText((product.salePrice * 10).toString())
     }
 
     private fun initListeners() {
@@ -108,7 +107,7 @@ class FormProductFragment : BaseFragment() {
     private fun saveProduct() {
         FirebaseHelper.getDatabase()
             .child("products")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(product.id)
             .setValue(product)
             .addOnCompleteListener { task ->
@@ -122,10 +121,6 @@ class FormProductFragment : BaseFragment() {
 
                     snackBar(R.string.text_save_sucess_form_product_fragment)
 
-                    parentFragmentManager.setFragmentResult(
-                        "KEY",
-                        bundleOf(Pair("KEY", product))
-                    )
                     findNavController().popBackStack()
                 }
             }.addOnFailureListener { exception ->

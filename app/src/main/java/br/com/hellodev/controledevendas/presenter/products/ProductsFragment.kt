@@ -21,6 +21,7 @@ import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 
@@ -33,6 +34,9 @@ class ProductsFragment : BaseFragment() {
 
     private lateinit var productAdapter: ProductAdapter
     private val productList = mutableListOf<Product>()
+
+    private var productRef: DatabaseReference? = null
+    private lateinit var productEventListener: ValueEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +61,6 @@ class ProductsFragment : BaseFragment() {
         initListeners()
 
         getProducts()
-
-        listenerFragment()
     }
 
     /**
@@ -119,25 +121,23 @@ class ProductsFragment : BaseFragment() {
     }
 
     private fun getProducts() {
-        FirebaseHelper.getDatabase()
+        productRef = FirebaseHelper.getDatabase()
             .child("products")
-            .child(FirebaseHelper.getIdUser())
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .child(FirebaseHelper.userId())
+            productEventListener = productRef!!.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        productList.clear()
-                        for (ds in snapshot.children) {
-                            productList.add(ds.getValue(Product::class.java) as Product)
-                        }
-
-                        val productList = productList
-                        productList.reverse()
-
-                        productAdapter.submitList(productList)
-                        productAdapter.notifyDataSetChanged()
+                    productList.clear()
+                    for (ds in snapshot.children) {
+                        productList.add(ds.getValue(Product::class.java) as Product)
                     }
 
-                    listEmpty(productAdapter.currentList)
+                    val productList = productList
+                    productList.reverse()
+
+                    productAdapter.submitList(productList)
+                    productAdapter.notifyDataSetChanged()
+
+                    listEmpty(productList)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -150,7 +150,7 @@ class ProductsFragment : BaseFragment() {
     private fun deleteProduct(product: Product) {
         FirebaseHelper.getDatabase()
             .child("products")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(product.id)
             .removeValue()
             .addOnCompleteListener {
@@ -364,7 +364,7 @@ class ProductsFragment : BaseFragment() {
         FirebaseHelper
             .getDatabase()
             .child("stock")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(product.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -402,28 +402,6 @@ class ProductsFragment : BaseFragment() {
             })
     }
 
-    private fun listenerFragment() {
-        parentFragmentManager.setFragmentResultListener(
-            "KEY",
-            this
-        ) { key, bundle ->
-            val product: Product = bundle[key] as Product
-
-            // Armazena a lista atual do adapter
-            val oldList = productAdapter.currentList
-
-            // Gera uma nova lista a partir da lista antiga já com a tarefa atualizada
-            val newList = oldList.toMutableList().apply {
-                add(0, product)
-            }
-
-            // Envia a lista atualizada para o adapter
-            productAdapter.submitList(newList)
-
-            setPositionRecyclerView()
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_add -> {
@@ -444,6 +422,7 @@ class ProductsFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (productRef != null) productRef!!.removeEventListener(productEventListener)
         _binding = null
     }
 

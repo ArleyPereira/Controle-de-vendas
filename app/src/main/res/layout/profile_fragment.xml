@@ -20,7 +20,8 @@
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_app">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -49,9 +50,11 @@
                     android:id="@+id/card_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     app:cardElevation="5dp"
-                    app:cardCornerRadius="60dp">
+                    app:cardCornerRadius="60dp"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/image_profile"
@@ -63,7 +66,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/avenir_black"
                     android:text="Estabelecimento"
                     android:textColor="@color/white" />

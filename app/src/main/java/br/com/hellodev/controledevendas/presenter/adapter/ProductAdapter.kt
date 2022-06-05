@@ -3,6 +3,7 @@ package br.com.hellodev.controledevendas.presenter.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -77,18 +78,18 @@ class ProductAdapter(
         FirebaseHelper
             .getDatabase()
             .child("stock")
-            .child(FirebaseHelper.getIdUser())
+            .child(FirebaseHelper.userId())
             .child(idProduct)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val stock = snapshot.getValue(Stock::class.java) as Stock
-                        holder.binding.textStock.text = stock.amount.toString()
-                    }
+                    val stock = snapshot.getValue(Stock::class.java) as Stock
+
+                    holder.binding.progressStock.isVisible = false
+                    holder.binding.textStock.isVisible = true
+                    holder.binding.textStock.text = stock.amount.toString()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
                 }
 
             })
@@ -99,20 +100,21 @@ class ProductAdapter(
         FirebaseHelper
             .getDatabase()
             .child("sales")
-            .child(FirebaseHelper.getIdUser())
-            .child(idProduct)
+            .child(FirebaseHelper.userId())
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     var saleAmount = 0
-                    if (snapshot.exists()) {
-                        for (sn in snapshot.children) {
-                            val sale  = sn.getValue(Sale::class.java) as Sale
+                    for (sn in snapshot.children) {
+                        val sale = sn.getValue(Sale::class.java) as Sale
 
+                        if (sale.idProduct == idProduct) {
                             saleAmount += sale.amount
                         }
-
-                        holder.binding.textSold.text = saleAmount.toString()
                     }
+
+                    holder.binding.progressSales.isVisible = false
+                    holder.binding.textSale.isVisible = true
+                    holder.binding.textSale.text = saleAmount.toString()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
