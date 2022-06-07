@@ -40,6 +40,11 @@
     <string name="text_button_register_fragment">Criar conta</string>
     <string name="text_title_toolbar_register_fragment">Criar conta</string>
 
+    <!--    Recover Fragment-->
+    <string name="email_empty_recover_fragment">Informe seu e-mail cadastro.</string>
+    <string name="text_title_toolbar_recover_fragment">Recuperar conta</string>
+    <string name="text_send_sucess_recover_fragment">Acabamos de enviar um link para o e-mail informado acima.</string>
+
     <!--    HomeFragment-->
     <string name="text_cost_price_product_home_Fragment">Preço de custo</string>
     <string name="text_sale_price_product_home_Fragment">Preço de venda</string>

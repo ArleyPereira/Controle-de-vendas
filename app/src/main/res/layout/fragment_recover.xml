@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/avenir_medium"
-                    android:text="Recuperar conta"
+                    android:text="@string/text_title_toolbar_recover_fragment"
                     android:textColor="@color/white" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -45,7 +45,6 @@
             android:layout_weight="1"
             android:fillViewport="true"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
@@ -95,12 +94,12 @@
         </ScrollView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/btn_recover"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_button"
             android:fontFamily="@font/avenir_black"
-            android:text="Recuperar conta"
+            android:text="@string/text_title_toolbar_recover_fragment"
             android:textColor="@color/color_hint"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
