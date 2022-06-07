@@ -69,8 +69,8 @@
                     android:background="@drawable/bg_button_round"
                     android:text="Entrar"
                     android:fontFamily="@font/avenir_black"
-                    android:textColor="@color/color_hint"
-                    app:backgroundTint="@null" />
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/color_hint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

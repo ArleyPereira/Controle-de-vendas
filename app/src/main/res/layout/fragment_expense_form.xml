@@ -23,7 +23,7 @@
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/avenir_medium"
                 android:text="Despesas"
-                android:textColor="@color/white" />
+                android:textColor="@color/color_hint" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_black"
                 android:text="Descrição"
-                android:textColor="@color/white" />
+                android:textColor="@color/color_hint" />
 
             <EditText
                 android:id="@+id/edit_description"
@@ -63,7 +63,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/avenir_black"
                 android:text="Valor"
-                android:textColor="@color/white" />
+                android:textColor="@color/color_hint" />
 
             <EditText
                 android:id="@+id/edit_amount"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:indeterminateTint="@color/white"
+                android:indeterminateTint="@color/color_hint"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
