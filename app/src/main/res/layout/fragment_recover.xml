@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_app">
+                android:background="@color/bg_app">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/avenir_medium"
                     android:text="@string/text_title_toolbar_recover_fragment"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/avenir_black"
                     android:text="Informe seu e-mail de cadastro para receber instruções para recuperação da conta."
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/avenir_black"
                     android:text="E-mail"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <EditText
                     android:id="@+id/edt_email"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    android:indeterminateTint="@color/white"
+                    android:indeterminateTint="@color/color_hint"
                     android:visibility="gone"
                     tools:visibility="visible" />
 

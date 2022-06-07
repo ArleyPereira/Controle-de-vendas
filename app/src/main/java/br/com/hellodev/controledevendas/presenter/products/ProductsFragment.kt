@@ -76,7 +76,7 @@ class ProductsFragment : BaseFragment() {
 
                     productAdapter.submitList(newList)
 
-                    listEmpty(productAdapter.currentList)
+                    listEmpty(newList)
                     true
                 } else {
                     productAdapter.submitList(productList)

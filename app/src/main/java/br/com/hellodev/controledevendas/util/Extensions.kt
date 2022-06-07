@@ -20,7 +20,7 @@ fun Fragment.initToolbar(toolbar: Toolbar, HomeAsUpEnabled: Boolean = true) {
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(HomeAsUpEnabled)
     (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
     toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
-    toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
+    toolbar.setTitleTextColor(Color.parseColor("#A85CF9"))
 }
 
 fun Context.toast(resource: Int): Toast = Toast

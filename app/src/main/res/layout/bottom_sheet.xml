@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/color_hint"
         android:fontFamily="@font/avenir_black"
-        android:text="Atenção"/>
+        android:text="Atenção"
+        android:textAlignment="center"
+        android:textColor="@color/color_hint" />
 
-    <View
+    <include
+        layout="@layout/divisor_vertical"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="?actionBarDivider"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/txtMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/avenir_medium"
         android:textAlignment="center"
         android:textColor="@color/color_hint"
-        android:fontFamily="@font/avenir_medium"
-        tools:text="Message"/>
+        tools:text="Message" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:background="@drawable/bg_button_round"
-        android:textColor="@color/white"
-        android:layout_marginTop="16dp"
-        android:text="Entendi"/>
+        android:text="Entendi"
+        android:textColor="@color/white" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:textColor="@color/color_hint"
         android:text="Cancelar"
-        tools:visibility="visible"/>
+        android:textColor="@color/color_hint"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </LinearLayout>

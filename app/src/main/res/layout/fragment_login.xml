@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/avenir_black"
                     android:text="E-mail"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <EditText
                     android:id="@+id/edt_email"
@@ -50,7 +50,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/avenir_black"
                     android:text="Senha"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <EditText
                     android:id="@+id/edt_password"
@@ -86,7 +86,7 @@
                         android:fontFamily="@font/avenir_black"
                         android:paddingVertical="8dp"
                         android:text="Criar conta"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/color_hint" />
 
                     <TextView
                         android:id="@+id/text_recover_account"
@@ -97,7 +97,7 @@
                         android:paddingVertical="8dp"
                         android:text="Recuperar conta"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/color_hint" />
 
                 </LinearLayout>
 
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:indeterminateTint="@color/white"
+                    android:indeterminateTint="@color/color_hint"
                     tools:visibility="visible"/>
 
             </LinearLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_app"
+        android:background="@color/bg_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +25,7 @@
                 style="@style/Base_ToolbarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="Produtos"/>
+                app:title="Produtos" />
 
             <com.ferfalk.simplesearchview.SimpleSearchView
                 android:id="@+id/simpleSearchView"
@@ -52,6 +52,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -59,16 +62,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Carregando, aguarde..."
-            android:textColor="@color/white"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/color_hint" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:indeterminateTint="@color/white"
-            android:layout_gravity="center_horizontal" />
+            android:indeterminateTint="@color/color_hint" />
 
     </LinearLayout>
 

@@ -21,7 +21,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_app">
+                android:background="@color/bg_app">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -32,7 +32,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_hint"
                         android:fontFamily="@font/avenir_medium"
                         android:text="Perfil"/>
 
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/avenir_black"
                     android:text="Estabelecimento"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <EditText
                     android:id="@+id/edt_establishment"
@@ -85,7 +85,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/avenir_black"
                     android:text="E-mail"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/color_hint" />
 
                 <EditText
                     android:id="@+id/edt_email"
